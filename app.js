@@ -1,5 +1,5 @@
 const grid = document.querySelector('.grid')
-
+let currentShooterIndex = 202
 
 for(let i = 0; i<225; i++) {
     const square = document.createElement('div')
@@ -23,3 +23,5 @@ function draw() {
 
 
 draw()
+
+squares[currentShooterIndex].classList.add('shooter')
