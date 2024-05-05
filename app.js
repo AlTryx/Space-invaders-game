@@ -60,6 +60,7 @@ function moveInvaders() {
         alienInvaders[i] += 1
     }
 
+    
     draw()
 
 }
