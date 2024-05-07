@@ -1,8 +1,10 @@
 const grid = document.querySelector('.grid')
+const resultsDisplay = document.querySelector('.results')
 let currentShooterIndex = 202
 let width = 15
 let direction = 1
 let invadersId
+let goingRight = true
 
 for(let i = 0; i<225; i++) {
     const square = document.createElement('div')
@@ -34,7 +36,7 @@ function remove() {
 }
 
 
-squares[currentShooterIndex].classList.add('shooter')
+ squares[currentShooterIndex].classList.add('shooter')
 
 
 function moveShooter(e) {
@@ -58,9 +60,19 @@ function moveInvaders() {
     const rightEdge = alienInvaders[alienInvaders.length - 1] % width === width - 1
     remove()
 
-    if (rightEdge) {
+    if (rightEdge && goingRight) {
         for(let i = 0; i<alienInvaders.length;i++) {
-            alienInvaders[i] += width
+            alienInvaders[i] += width + 1// add 15 - 1
+            direction = -1
+            goingRight = false
+        }
+    }
+
+    if(leftEdge && !goingRight) {
+        for(let i = 0; i< alienInvaders.length; i++) {
+            alienInvaders[i] += width -1
+            direction = 1
+            goingRight = true
         }
     }
 
@@ -71,6 +83,19 @@ function moveInvaders() {
     
     draw()
 
+    if (squares[currentShooterIndex].classList.contains('invader','shooter')) {
+        resultsDisplay.innerHTML = 'GAME OVER'
+        clearInterval(invadersId)
+    }
+
+    for (let i = 0; i < alienInvaders.length ; i++) {
+        if(alienInvaders[i] > squares.length + width) {
+            resultsDisplay.innerHTML = 'GAME OVER'
+            clearInterval(invadersId)
+        }
+    }
+
+
 }
 
-invadersId = setInterval(moveInvaders, 500)
+invadersId = setInterval(moveInvaders, 50)
