@@ -6,6 +6,7 @@ let direction = 1
 let invadersId
 let goingRight = true
 let aliensRemoved = []
+let results = 0
 
 for(let i = 0; i<225; i++) {
     const square = document.createElement('div')
@@ -117,19 +118,21 @@ function shoot(e) {
         currentLaserIndex -= width
         squares[currentLaserIndex].classList.add('laser')
 
-        if(squares[currentLaserIndex].classList.contains('invader')) {
-            squares[currentLaserIndex].classList.remove('laser')
-            squares[currentLaserIndex].classList.remove('invader')
-            squares[currentLaserIndex].classList.add('boom')
+    if(squares[currentLaserIndex].classList.contains('invader')) {
 
-            setTimeout( () => squares[currentLaserIndex].classList.remove('boom'), 300)
-            clearInterval(laserId)  
+        squares[currentLaserIndex].classList.remove('laser')
+        squares[currentLaserIndex].classList.remove('invader')
+        squares[currentLaserIndex].classList.add('boom')
 
-            const alienRemoved = alienInvaders.indexOf(currentLaserIndex) // index of alienInvaders (in currentLaserIndex)
-            
-            aliensRemoved.push(alienRemoved)
+        setTimeout( () => squares[currentLaserIndex].classList.remove('boom'), 300)
+        clearInterval(laserId)  
 
-        }
+        const alienRemoved = alienInvaders.indexOf(currentLaserIndex) // index of alienInvaders (in currentLaserIndex)
+        aliensRemoved.push(alienRemoved)
+        results++
+        resultsDisplay.innerHTML = results
+
+    }
     }
 }
         switch(e.key) {
