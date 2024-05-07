@@ -56,9 +56,11 @@ function moveShooter(e) {
     }
     squares[currentShooterIndex].classList.add('shooter')
 }
+
 document.addEventListener('keydown',moveShooter)
 
 function moveInvaders() {
+
     const leftEdge = alienInvaders[0] % width === 0
     const rightEdge = alienInvaders[alienInvaders.length - 1] % width === width - 1
     remove()
@@ -98,6 +100,10 @@ function moveInvaders() {
         }
     }
 
+    if (aliensRemoved.legnth === alienInvaders.length) {
+        resultsDisplay.innerHTML = 'YOU WIN'
+        clearInterval(invadersId)
+    }
 
 }
 invadersId = setInterval(moveInvaders, 500)
